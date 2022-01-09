@@ -85,8 +85,8 @@ export default function Header(props) {
           )}
         </IconButton>
         <Grid justifyContent='center' alignItems='center' container>
-          <Grid item xs={2}>
-            <Image style={{ marginLeft: '2rem' }} width={100} src="./logo.svg" alt="" />
+          <Grid style={{ marginLeft: '2rem' }} item xs={2}>
+            <Image  width={100} height={60} src="/logo.svg" alt="IGSCS Logo" />
           </Grid>
           <Grid item  xs={8}>
             <Box>
@@ -108,7 +108,7 @@ export default function Header(props) {
           onClick={e => setProfileMenu(e.currentTarget)}
         >
           
-            <Image width={70}  src="./client-logo.png" alt="" />
+            <Image width={70}  height={70} src="/client-logo.png" alt="Client Logo" />
             </IconButton>
           </Grid>
         </Grid>

@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Link from 'next/link'
+import React, { useContext, useEffect} from 'react';
 import Image from 'next/image'
 import { useRouter } from 'next/router';
-import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
@@ -59,9 +57,8 @@ export default function SignInSide() {
     <ThemeProvider theme={theme}>
 
       <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} lg={7}>
-         <Image src='/bg.png'width='100%' height='100%'alt={'IGSCS LOGO'} ></Image>
+        <Grid container justifyContent='center' alignItems='center' item xs={false} sm={4} lg={7}>
+         <Image src='/logo.svg'width={500} height={500}alt={'IGSCS LOGO'} ></Image>
         </Grid>
         <Grid item xs={12} sm={8} lg={5} component={Paper} elevation={6} square>
           {/* Form Started */}
