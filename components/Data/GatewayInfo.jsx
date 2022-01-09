@@ -11,7 +11,7 @@ export default function GatewayInfo({GatewayDataInfo}) {
   var formattted_last_seen = date.toLocaleString()
   const datatableData = [
     ["Gateway Name", `${GatewayDataInfo.name}`],
-    ["Gateway ID", `${GatewayDataInfo.id}`],
+    ["Gateway ID", `${GatewayDataInfo.gatewayId}`],
     ["Last Seen", `${formattted_last_seen}`],
     ["Gateway Description", `${GatewayDataInfo.description}`],
     ["Discovery Enabled", `${GatewayDataInfo.discoveryEnabled}`],

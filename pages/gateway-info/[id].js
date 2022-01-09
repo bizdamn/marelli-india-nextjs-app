@@ -4,22 +4,21 @@ import { ResponsiveContainer } from "recharts";
 import { Doughnut } from "react-chartjs-2";
 import Layout from "../../Layout/Layout"
 import { useRouter } from 'next/router'
-// components
+import axios from 'axios'
 import GatewayInfo from "../../components/Data/GatewayInfo";
-export default function GatewayPage() {
+export default function GatewayPage({name,description,gatewayId,discoveryEnabled,createdAt,updatedAt,lastSeenAt,firstSeenAt,location}){
   const router = useRouter()
   const { id } = router.query
-
   const [GatewayDataInfo, setGatewayDataInfo] = useState({
-    name: null,
-    description: null,
-    id: null,
-    discoveryEnabled: null,
-    createdAt: null,
-    updatedAt: null,
-    lastSeenAt: null,
-    firstSeenAt: null,
-    location: null,
+    name: name,
+    description: description,
+    gatewayId: gatewayId,
+    discoveryEnabled: discoveryEnabled,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+    lastSeenAt: lastSeenAt,
+    firstSeenAt: firstSeenAt,
+    location: location,
   });
 
   const Gatewaysdata = {
@@ -49,60 +48,65 @@ export default function GatewayPage() {
     ],
   };
 
-  
+
   useEffect(() => {
-    
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Grpc-Metadata-Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNTUyNzc0ZWEtMjJlNS00YzY1LWFhMjAtN2Y4NzU0Y2E5NjFkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTYzNzY1MTgwNSwic3ViIjoiYXBpX2tleSJ9._2OFZ7tfw6GYSbYk94M5RM17BwUGQB3IoGRZdqoGd_4'
-      },
-    };
-    fetch(`https://chirpstack.igscsi4server.com/api/gateways/${id}`, requestOptions)
-      .then(response => response.json())
-      .then(data => setGatewayDataInfo({
-        name: data.gateway.name,
-        id: data.gateway.id,
-        location: data.gateway.location,
-        discoveryEnabled: data.gateway.discoveryEnabled,
-        description: data.gateway.description,
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
-        firstSeenAt: data.firstSeenAt,
-        lastSeenAt: data.lastSeenAt,
-      })).catch(function () {
-        alert('Please Check your internet connection. Either their is no internet connection or the signals are weak');
-      });
-  }, [])
+
+  }, [id])
 
   return (
     <Layout>
-    <Grid container spacing={4}>
-      <Grid item xs={12} lg={6}>
-        <GatewayInfo  GatewayDataInfo={GatewayDataInfo} />
+      <Grid container spacing={4}>
+        <Grid item xs={12} lg={6}>
+          <GatewayInfo  GatewayDataInfo={GatewayDataInfo} />
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <ResponsiveContainer className="p-0" >
+            <>
+              <div
+                className="p-1"
+                style={{
+                  backgroundColor: "#9013FE",
+                  borderRadius: "1rem",
+                  color: "#fff",
+                  textAlign: "center",
+                }}
+              >
+                <h5>Gateway Status</h5>
+              </div>
+              <Doughnut width={70} data={Gatewaysdata} />
+            </>
+          </ResponsiveContainer>
+        </Grid>
       </Grid>
-      <Grid item xs={12} lg={6}>
-        <ResponsiveContainer className="p-0" >
-          <>
-            <div
-              className="p-1"
-              style={{
-                backgroundColor: "#9013FE",
-                borderRadius: "1rem",
-                color: "#fff",
-                textAlign: "center",
-              }}
-            >
-              <h5>Gateway Status</h5>
-            </div>
-            <Doughnut width={70} data={Gatewaysdata} />
-          </>
-        </ResponsiveContainer>
-      </Grid>
-    </Grid>
     </Layout>
   );
 }
 
 
+
+
+export async function getServerSideProps(ctx) {
+  const { id } = ctx.query;
+  const { data } = await axios.get(`https://chirpstack.igscsi4server.com/api/gateways/${id}`,
+    {
+      headers: {
+        'Accept': 'application/json',
+        'Grpc-Metadata-Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNTUyNzc0ZWEtMjJlNS00YzY1LWFhMjAtN2Y4NzU0Y2E5NjFkIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTYzNzY1MTgwNSwic3ViIjoiYXBpX2tleSJ9._2OFZ7tfw6GYSbYk94M5RM17BwUGQB3IoGRZdqoGd_4'
+      },
+    }
+  )
+
+  return {
+    props: {
+      name: data.gateway.name,
+      gatewayId: data.gateway.id,
+      location: data.gateway.location,
+      discoveryEnabled: data.gateway.discoveryEnabled,
+      description: data.gateway.description,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+      firstSeenAt: data.firstSeenAt,
+      lastSeenAt: data.lastSeenAt,
+    },
+  };
+}
