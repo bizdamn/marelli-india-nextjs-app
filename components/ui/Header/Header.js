@@ -85,7 +85,7 @@ export default function Header(props) {
           )}
         </IconButton>
         <Grid justifyContent='center' alignItems='center' container>
-          <Grid style={{ marginLeft: '2rem' }} item xs={2}>
+          <Grid  item xs={2}>
             <Image  width={100} height={60} src="/logo.svg" alt="IGSCS Logo" />
           </Grid>
           <Grid item  xs={8}>

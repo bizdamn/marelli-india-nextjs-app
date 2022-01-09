@@ -42,24 +42,32 @@ export default function DevicePage({ tempArray, humArray, deviceCalibration }) {
   const [current_humidity_calibration, setCurrent_humidity_calibration] = useState(deviceCalibration[0].humidity_calibration);
   const [current_temprature_calibration, setCurrent_temprature_calibration] = useState(deviceCalibration[0].temprature_calibration);
 
-  function tempratureFilter() {
-    axios
-      .post(`/api/filter`, {
+  async function tempratureFilter() {
+    closeSnackbar()
+    try {
+
+      const { data } = await axios.post(`/api/filter`, {
         start_date: startDate,
         end_date: endDate,
         deviceEUI: id
       })
-      .then((response) => {
-        const df = new dfd.DataFrame(response.data)
+      // console.log(data)
+      if (data.length > 0) {
+        const df = new dfd.DataFrame(data)
         const tempraturedf = df.column("temprature")
         const humiditydf = df.column("humidity")
         setTemprature(tempraturedf.$data)
         setHumidity(humiditydf.$data)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
+      }
+      else {
+        setTemprature(data)
+        setHumidity(data)
+      }
+      enqueueSnackbar('Filtered', { variant: 'success' });
+    }
+    catch (e) {
+      console.log(e)
+    }
 
 
   }
@@ -240,7 +248,7 @@ export default function DevicePage({ tempArray, humArray, deviceCalibration }) {
 
 
 
-      {userInfo.isAdmin == true ? (
+      {userInfo && userInfo.isAdmin == true ? (
 
 
 
@@ -300,7 +308,7 @@ export default function DevicePage({ tempArray, humArray, deviceCalibration }) {
                         <ListItemText
                           primary="Output"
                           secondary={
-                            temprature[temprature.length - 1].toFixed(2)
+                            parseFloat(temprature[temprature.length - 1]).toFixed(2)
                           }
                         />
                       ) : (
@@ -364,7 +372,7 @@ export default function DevicePage({ tempArray, humArray, deviceCalibration }) {
                       <ListItemText
                         primary="Output"
                         secondary={
-                          humidity[humidity.length - 1].toFixed(2)
+                          parseFloat(humidity[humidity.length - 1]).toFixed(2)
                         }
                       />
                     ) : (

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const signToken = (store) => {
+const signToken = (user) => {
   return jwt.sign(
     {
       _id: user._id,
@@ -25,7 +25,7 @@ const isAuth = async (req, res, next) => {
       if (err) {
         res.status(401).send({ message: 'Token is not valid' });
       } else {
-        req.store = decode;
+        req.user = decode;
         next();
       }
     });

@@ -6,13 +6,14 @@ const handler = nc();
 
 
 handler.post(async (req, res) => {
+  // console.log(req.body.deviceEUI)
+  // console.log(req.body.start_date)
+  // console.log(req.body.end_date)
   await db.connect();
-  startDate = req.body.start_date;
-  endDate = req.body.end_date;
-  deviceEUI = req.body.deviceEUI;
-  query = { timestamp: { $gt: new Date(startDate), $lt: new Date(endDate) },devEUI: deviceEUI  }
-  const filteredEntries = await Entries.find(query)
+  const filteredEntries = await Entries.find({timestamp: { $gt: new Date(req.body.start_date), $lt: new Date(req.body.end_date) },devEUI: req.body.deviceEUI  })
   await db.disconnect();
+
+  // console.log(filteredEntries)
   res.send(filteredEntries);
 
 });

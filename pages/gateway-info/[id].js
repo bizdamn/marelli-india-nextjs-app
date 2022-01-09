@@ -83,7 +83,7 @@ export default function GatewayPage() {
         <GatewayInfo  GatewayDataInfo={GatewayDataInfo} />
       </Grid>
       <Grid item xs={12} lg={6}>
-        <ResponsiveContainer width={70} className="p-0" >
+        <ResponsiveContainer className="p-0" >
           <>
             <div
               className="p-1"

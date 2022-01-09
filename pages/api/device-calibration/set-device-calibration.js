@@ -7,7 +7,7 @@ const handler = nc();
 
 handler.post(async (req, res) => {
   await db.connect();
-  const store = await DeviceCalibration.updateOne({
+  const device = await DeviceCalibration.updateOne({
     devEUI: req.body.devEUI, $set: {
       temprature_calibration: req.body.tempratureCalibration,
       humidity_calibration: req.body.humidityCalibration
