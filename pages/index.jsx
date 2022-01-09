@@ -12,7 +12,7 @@ import Layout from "../Layout/Layout"
 import { DataStore } from '../utils/DataStore';
 export default function LiveData({ lastEntry117a, lastEntry79fd,lastEntry7a4e,lastEntry7a01,lastEntry79fe,lastEntry7a0a }) {
   const router = useRouter();
-  const { state, dispatch } = useContext(DataStore);
+  const { state} = useContext(DataStore);
   const { userInfo } = state;
   useEffect(() => {
     if (!userInfo) {
@@ -111,32 +111,133 @@ export default function LiveData({ lastEntry117a, lastEntry79fd,lastEntry7a4e,la
 
 
 
+  // 117A
+
   if(lastEntry117a.length>0){
     if(lastEntry117a[0].temprature<20||lastEntry117a[0].temprature>26){
       tempratureAlarmOn()
+      setInterval(function(){ 
+        tempratureAlarmOff()
+    }, 60 * 1000);
+
     }
   }
-  if(lastEntry79fd.length>0){
-    if(lastEntry79fd[0].temprature<20||lastEntry79fd[0].temprature>26){
-      tempratureAlarmOff()
-    }
-  }
-  
-
-  
-
-
-  
   if(lastEntry117a.length>0){
     if(lastEntry117a[0].humidity<40||lastEntry117a[0].humidity>60){
       humidityAlarmOn()
+      setInterval(function(){ 
+        humidityAlarmOff()
+    }, 60 * 1000);
+    }
+  }
+
+
+
+  // 79fd
+
+  if(lastEntry79fd.length>0){
+    if(lastEntry79fd[0].temprature<20||lastEntry79fd[0].temprature>26){
+      tempratureAlarmOn()
+      setInterval(function(){ 
+        tempratureAlarmOff()
+    }, 60 * 1000);
+
     }
   }
   if(lastEntry79fd.length>0){
     if(lastEntry79fd[0].humidity<40||lastEntry79fd[0].humidity>60){
-      humidityAlarmOff()
+      humidityAlarmOn()
+      setInterval(function(){ 
+        humidityAlarmOff()
+    }, 60 * 1000);
     }
   }
+
+
+  // 7a4e
+
+  if(lastEntry7a4e.length>0){
+    if(lastEntry7a4e[0].temprature<20||lastEntry7a4e[0].temprature>26){
+      tempratureAlarmOn()
+      setInterval(function(){ 
+        tempratureAlarmOff()
+    }, 60 * 1000);
+
+    }
+  }
+  if(lastEntry7a4e.length>0){
+    if(lastEntry7a4e[0].humidity<40||lastEntry7a4e[0].humidity>60){
+      humidityAlarmOn()
+      setInterval(function(){ 
+        humidityAlarmOff()
+    }, 60 * 1000);
+    }
+  }
+
+
+  // 7a01
+
+  if(lastEntry7a01.length>0){
+    if(lastEntry7a01[0].temprature<20||lastEntry7a01[0].temprature>26){
+      tempratureAlarmOn()
+      setInterval(function(){ 
+        tempratureAlarmOff()
+    }, 60 * 1000);
+
+    }
+  }
+  if(lastEntry7a01.length>0){
+    if(lastEntry7a01[0].humidity<40||lastEntry7a01[0].humidity>60){
+      humidityAlarmOn()
+      setInterval(function(){ 
+        humidityAlarmOff()
+    }, 60 * 1000);
+    }
+  }
+
+
+  // 79fe
+
+  if(lastEntry79fe.length>0){
+    if(lastEntry79fe[0].temprature<20||lastEntry79fe[0].temprature>26){
+      tempratureAlarmOn()
+      setInterval(function(){ 
+        tempratureAlarmOff()
+    }, 60 * 1000);
+
+    }
+  }
+  if(lastEntry79fe.length>0){
+    if(lastEntry79fe[0].humidity<40||lastEntry79fe[0].humidity>60){
+      humidityAlarmOn()
+      setInterval(function(){ 
+        humidityAlarmOff()
+    }, 60 * 1000);
+    }
+  }
+
+
+  // 7a0a
+
+  if(lastEntry7a0a.length>0){
+    if(lastEntry7a0a[0].temprature<20||lastEntry7a0a[0].temprature>26){
+      tempratureAlarmOn()
+      setInterval(function(){ 
+        tempratureAlarmOff()
+    }, 60 * 1000);
+
+    }
+  }
+  if(lastEntry7a0a.length>0){
+    if(lastEntry7a0a[0].humidity<40||lastEntry7a0a[0].humidity>60){
+      humidityAlarmOn()
+      setInterval(function(){ 
+        humidityAlarmOff()
+    }, 60 * 1000);
+    }
+  }
+
+
 
   
   return (
@@ -275,7 +376,7 @@ export default function LiveData({ lastEntry117a, lastEntry79fd,lastEntry7a4e,la
           </ResponsiveContainer>
         </Grid>
 
-        {/* 117a */}
+        {/*   7a4e*/}
         <Grid
           component={Paper}
           style={{ border: "2px solid #9013FE", borderRadius: "1rem" }}
