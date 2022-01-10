@@ -30,7 +30,7 @@ export default function LiveData({ lastEntry117a, lastEntry79fd,lastEntry7a4e,la
       body: JSON.stringify({
         deviceQueueItem: {
           confirmed: true,
-          data: '+gcMRE0xPTNF',
+          data: '+gcMRE00PTNI',
           devEUI: `ff0006f201000001`,
           fCnt: 0,
           fPort: 7
@@ -51,7 +51,7 @@ export default function LiveData({ lastEntry117a, lastEntry79fd,lastEntry7a4e,la
       body: JSON.stringify({
         deviceQueueItem: {
           confirmed: true,
-          data: '+gcMRE0xPTRG',
+          data: '+gcMRE00PTRJ',
           devEUI: `ff0006f201000001`,
           fCnt: 0,
           fPort: 7
